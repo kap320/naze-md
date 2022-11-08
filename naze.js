@@ -3166,41 +3166,27 @@ break
                 }
             }
             break
-             case 'tiktok': case 'tiktoknowm': {
-                if (!text) throw 'Masukkan Query Link!'
-                m.reply(mess.wait)
-                let anu = await fetchJson(`https://anabotofc.herokuapp.com/api/download/tiktok2?url=${text}&apikey=AnaBot`)
-                let buttons = [
-                    {buttonId: `allmenu`, buttonText: {displayText: '📖List Menu'}, type: 1},
-                    {buttonId: `tiktokmp3 ${text}`, buttonText: {displayText: '♫ Audio'}, type: 1}
-                ]
-                let buttonMessage = {
-                    video: { url: anu.result.nowm },
-                    caption: `Download From ${text}`,
-                    footer: nyoutube,
-                    buttons: buttons,
-                    headerType: 5
-                }
-                naze.sendMessage(m.chat, buttonMessage, { quoted: m })
-            }
-            break
-           /**case 'tiktokwm': case 'tiktokwatermark': {
-                if (!text) throw 'Masukkan Query Link!'
-                m.reply(mess.wait)
-                let anu = await fetchJson(`https://botcahx-rest-api.herokuapp.com/api/dowloader/tikok?url=${text}`)
-                let buttons = [
-                    {buttonId: `tiktoknowm ${text}`, buttonText: {displayText: '► No Watermark'}, type: 1},
-                    {buttonId: `tiktokmp3 ${text}`, buttonText: {displayText: '♫ Audio'}, type: 1}
-                ]
-                let buttonMessage = {
-                    video: { url: anu.result.video_original },
-                    caption: `Download From ${text}`,
-                    footer: nyoutube,
-                    buttons: buttons,
-                    headerType: 5
-                }
-                naze.sendMessage(m.chat, buttonMessage, { quoted: m })
-            }
+             case 'tiktok':{
+if (!text) return m.reply( `Example : ${prefix + command} link`)
+if (!q.includes('tiktok')) return reply(`Link Invalid!!`)
+m.reply("Loading...")
+require('./lib/tiktok').Tiktok(q).then( data => {
+    let buttons = [
+        {buttonId: `tiktoknowm ${q}`, buttonText: {displayText: '► No Watermark'}, type: 1},
+        {buttonId: `tiktokmp3 ${q}`, buttonText: {displayText: '♫ Audio'}, type: 1}
+    ]
+papah.sendMessage(m.chat, { caption: 'Kamu bisa mengubahnya menjadi Vidio Tanpa Watermark atau Audio, pencet tombol dibawah untuk mengubahnya!', video: { url: data.watermark }, buttons: buttons, footer: `© Sad-Bot`, mentions: [sender] })
+})
+}
+break
+            case 'tiktoknowm':{
+if (!text) return m.reply( `Example : ${prefix + command} link`)
+if (!q.includes('tiktok')) return reply(`Link Invalid!!`)
+m.reply("Loading...")
+require('./lib/tiktok').Tiktok(q).then( data => {
+papah.sendMessage(m.chat, { video: { url: data.nowm }}, { quoted: m })
+})
+}
             break**/
             case 'tiktokmp3': case 'tiktokaudio': {
                 if (!text) throw 'Masukkan Query Link!'
